@@ -9,7 +9,7 @@ import random
 import chess
 import soduku
 
-width, height, grid_size = 720, 560, 16
+width, height, grid_size = 1150, 720, 16
 
 def get_hex(n):
     number = random.randint(0, 16 ** n)

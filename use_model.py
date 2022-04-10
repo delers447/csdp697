@@ -2,6 +2,7 @@
 import numpy as np
 import tensorflow as tf
 from matplotlib import pyplot as plt
+import random
 
 def get_data():
     ''' internal function not used by Joey'''
@@ -46,7 +47,7 @@ def get_data():
             x_train.append(x)
             y_train.append(y)
 
-        if i > 10_000:
+        if i > 10_200:
             break
 
     return np.array(x_train), np.array(y_train), np.array(x_test), np.array(y_test)
@@ -86,7 +87,7 @@ def get_top_3(game_data):
     second_prob, second_index, second_prediction = 0, 0, 0
     third_prob, third_index, third_prediction = 0, 0, 0
     zeros = get_list_of_zeros(game_data)
-    print(f"zeros: {zeros}")
+    #print(f"zeros: {zeros}")
     for index in zeros:
         prob, cord  = np.max(predictions[index]), np.argmax(predictions[index])
         #print(f"zero: {index}, prob: {prob}, cord: {cord}")
@@ -98,15 +99,22 @@ def get_top_3(game_data):
             max_prob, max_index, max_prediction = prob, index, cord
     return (max_prob, max_index, max_prediction+1), (second_prob, second_index, second_prediction), (third_prob, third_index, third_prediction)
 
+def from_nparray_into_python_array(np_array):
+    p_array = [[0 for i in range(9)] for i in range(9)]
+    for x in range(9):
+        for y in range(9):
+            p_array[x][y] = np_array[x][y]
+    return p_array
 
 def get_seed(number=False):
     ''' returns a 9x9 seed of 31 numbers
     given an index is optional, 1-10_000
     making consistent testing possible'''
     if number:
-        return x_test[number]
+
+        return from_nparray_into_python_array(x_train[number])
     else:
-        return x_test(random.randint(0,10_000))
+        return from_nparray_into_python_array(x_train[random.randint(0,10_000)])
 
 def example_for_foe():
     ''' example for joey'''
