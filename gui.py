@@ -41,6 +41,8 @@ def mouse_parse(event, canvas):
 def main():
     root = tk.Tk()
     root.geometry(f"{width}x{height}")
+    root.resizable(False, False)
+    root.title("Chib sexy mang")
 
     canvas = tk.Canvas(root, height=height, width=width, bg="black")
     canvas.pack()
